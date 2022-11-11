@@ -35,10 +35,18 @@ async function run() {
 
         })
 
+        // Add service
+        app.post('/services', async (req, res) => {
+            const review = req.body;
+            const result = await serviceCollection.insertOne(review);
+            res.send(result);
+        })
+
+
+
+
 
         //review api
-
-
         // Load logged user review.
         app.get('/reviews', async (req, res) => {
             let query = {};
@@ -51,6 +59,7 @@ async function run() {
             const reviews = await cursor.toArray();
             res.send(reviews);
         })
+
 
         // get review
         app.get('/reviews/:id', async (req, res) => {
@@ -69,7 +78,6 @@ async function run() {
             res.send(result);
         })
 
-
         // review update
 
         app.patch('/reviews/:id', async (req, res) => {
@@ -77,8 +85,6 @@ async function run() {
             const query = { _id: ObjectId(id) }
 
         })
-
-
 
         // review delete
         app.delete('/reviews/:id', async (req, res) => {
@@ -88,8 +94,6 @@ async function run() {
             res.send(reviews);
 
         })
-
-
 
 
 
